@@ -10,3 +10,7 @@ def linker():
 @app.route('/Minerva')
 def minerva():
     return render_template("namer.html", person_name = "Minerva")
+
+@app.route('/Falacer')
+def falacer():
+    return render_template("namer.html", person_name = "Falacer")
