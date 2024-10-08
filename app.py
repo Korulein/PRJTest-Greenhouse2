@@ -7,3 +7,6 @@ app = Flask(__name__)
 def linker():
     return "linker.html"
 
+@app.route('/Minerva')
+def minerva():
+    return render_template("namer.html", person_name = "Minerva")
