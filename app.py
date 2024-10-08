@@ -1,15 +1,31 @@
-from flask import Flask, jsonify, render_template
-import time
+from flask import Flask, jsonify, render_template, request, redirect
 import datetime
 from datetime import datetime
 import random
 
 app = Flask(__name__)
 
+
+@app.route("/")
+def login():
+    return render_template("Login.html")
+
+global user
+
+@app.route("/Login", methods = ['POST'])
+def register():
+    global user
+    username = request.form["username"]
+    password = request.form["password"]
+    user = username
+    print("Username: " + str(username) + " Password: " + str(password))
+    return redirect("/Redirect")
+
 # Main page to fetch the links of all other pages
-@app.route('/')
+@app.route('/Redirect')
 def linker():
-    return "linker.html"
+    global user
+    return render_template("linker.html", user = user)
 
 # Render Template Examples
 @app.route('/Minerva')
@@ -36,4 +52,3 @@ def get_time():
 def timedata():
     current_time = datetime.now().strftime("%H:%M:%S")
     return current_time
-
