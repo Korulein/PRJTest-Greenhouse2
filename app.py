@@ -28,7 +28,9 @@ def time_page():
 @app.route("/get-time")
 def get_time():
     current_time = timedata()
-    return jsonify(time1=current_time)
+    current_light= random.uniform(500.0, 750.0)
+    formatted_float = format(current_light, '.10f')
+    return jsonify(time1=current_time, light1=formatted_float)
 
 # Function to get the current time
 def timedata():
