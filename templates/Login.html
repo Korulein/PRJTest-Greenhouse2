@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script>
+        document.getElementById("redirectButton").addEventListener("click", redirect);
+        function redirect(){ window.location = "http://localhost:5001/Redirect"; }
+    </script>
+</head>
+<body>
+<h1>Input Credentials to Login</h1><br>
+<form action="/Login" method="POST">
+  <label>Username:</label><br>
+  <input type="text" name="username"><br><br>
+
+  <label>Password:</label><br>
+  <input type="text" name="password"><br><br><br>
+
+  <input id="redirectButton" type="submit" value="Login">
+</form>
+
+</body>
+</html>
