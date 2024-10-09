@@ -17,7 +17,6 @@ void loop() {
 
   // Read the light level from the LDR sensor 
   int lightLevel = analogRead(LIGHTPIN);
-  }
 
   // Send the temperature, humidity, and light level over the serial port
   Serial.print("T:"); // Prefix for temperature
