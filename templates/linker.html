@@ -1,15 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"> <!-- Specifies the character encoding for the document (UTF-8) -->
+    <title>Dashboard</title>
+
+    <style>
+        body {
+            font-family: Courier New; /* Sets the font type for the text in the body */
+            background-color: #f4f4f4; /* Sets the background color of the page */
+            margin: 0; /* Removes default margin around the body */
+            display: flex; /* Enables Flexbox layout for easy centering */
+            justify-content: center; /* Centers the content horizontally */
+            align-items: center; /* Centers the content vertically */
+            height: 100vh; /* Sets the height of the body to 100% of the viewport height */
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px; /* Adds space inside the container */
+            border-radius: 8px; /* Rounds the corners of the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a shadow effect to the container */
+            text-align: center;
+            width: 300px;
+        }
+
+        h3 {
+            margin-bottom: 10px; /* Adds space below the heading */
+            color: #333;
+        }
+
+        p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px; /* Adds space below the paragraph */
+            display: block; /* Makes sure the paragraph takes a full line */
+        }
+
+        /* Styles for links inside the container */
+        a {
+            display: block; /* Makes each link a block element, allowing margins and padding */
+            margin: 10px 0; /* Adds space above and below the link */
+            padding: 10px; /* Adds space inside the link area */
+            background-color: #4CAF50; /* Sets the background color for the link (green) */
+            color: white; /* Sets the text color of the link to white */
+            text-decoration: none; /* Removes the underline from the link text */
+            border-radius: 4px; /* Rounds the corners of the link */
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Transition effect for background color changes */
+        }
+
+        /* Styles for link hover effect */
+        a:hover {
+            background-color: #45a049; /* Changes the background color of the link on hover */
+        }
+    </style>
 </head>
 <body>
-<h3>{{ user }} is logged in.</h3>
-<p1>Below you may find redirects to their respective functions.</p1>
-<a href="http://localhost:5000/Time"> Greenhouse 1 Parameters </a>
-<a href="http://localhost:5000/Time"> Greenhouse 2 Parameters </a>
-<a href="http://localhost:5000/Time"> Greenhouse 3 Parameters </a>
+<div class="container"> <!-- Main container for the content -->
+    <h3>{{ user }} is logged in.</h3> <!-- Displays the logged-in user's name, passed from the Flask backend -->
 
+    <!-- Links to different greenhouse parameters, passing the greenhouse ID as a query parameter -->
+    <a href="http://localhost:5000/Time?greenhouse=1">Greenhouse 1 Parameters</a>
+    <a href="http://localhost:5000/Time?greenhouse=2">Greenhouse 2 Parameters</a>
+    <a href="http://localhost:5000/Time?greenhouse=3">Greenhouse 3 Parameters</a>
+</div>
 </body>
 </html>

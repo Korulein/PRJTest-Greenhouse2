@@ -2,34 +2,127 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green House 1 Statistics</title>
+
+    <style>
+        body {
+            display: flex; /* Enables Flexbox layout for easy centering */
+            justify-content: center; /* Centers the content horizontally */
+            align-items: center; /* Centers the content vertically */
+            height: 100vh; /* Sets the height of the body to 100% of the viewport height */
+            margin: 0; /* Removes default margin around the body */
+            background-color: #f4f4f9;
+        }
+
+
+        .container {
+            display: flex; /* Enables Flexbox layout for the container */
+            flex-direction: column; /* Aligns child elements in a column */
+            align-items: center; /* Centers child elements horizontally */
+            background-color: white;
+            padding: 20px; /* Adds space inside the container */
+            border-radius: 8px; /* Rounds the corners of the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a shadow effect to the container */
+            max-width: 800px;
+            width: 100%; /* Makes the container responsive, taking full width up to the max-width */
+        }
+
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        /* Styles for the table element */
+        table {
+            width: 100%; /* Makes the table take the full width of the container */
+            border-collapse: collapse; /* Collapses borders between table cells*/
+            margin-bottom: 20px; /* Adds space below the table */
+        }
+
+        /* Styles for table headers and data cells */
+        th, td {
+            border: 1px solid #ccc; /* Adds a light grey border around table cells */
+            padding: 8px; /* Adds space inside each cell */
+            text-align: center; /* Centers text inside the cells */
+        }
+
+        /* Styles specifically for table headers */
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Styles for the footer row of the table */
+        .footer-row {
+            font-weight: bold; /* Makes the text in the footer row bold */
+            background-color: #e7e7e7;
+        }
+    </style>
+
     <script>
         // Function to fetch the time and sensor data from the server every second
         function fetchData() {
-            fetch('/get-time')
-                .then(response => response.json())
+            fetch('/get-time') // Makes a GET request to the '/get-time' endpoint
+                .then(response => response.json()) // Parses the JSON response
                 .then(data => {
-                    document.getElementById('time2').textContent = 'Time: ' + data.time1;
-                    document.getElementById('light2').textContent = 'Light Level: ' + data.light1;
-                    document.getElementById('temperature2').textContent = 'Temperature: ' + data.temperature1 + '°C';
-                    document.getElementById('humidity2').textContent = 'Humidity: ' + data.humidity1 + '%';
+                    updateTable(data.sensor_data); // Updates the table with sensor readings
+                    updateFooter(data.averages); // Updates the footer with average values
                 });
         }
 
-        // Start polling the server every second
-        setInterval(fetchData, 2000);
+        // Function to update the table with sensor readings
+        function updateTable(sensorData) {
+            const table = document.getElementById('data-table'); // Gets the table element by ID
+            const tbody = table.querySelector('tbody'); // Gets the tbody element of the table
+            tbody.innerHTML = ''; // Clears existing rows in the tbody
+
+            // Populate table rows with sensor data
+            sensorData.forEach(data => {
+                const newRow = tbody.insertRow(); // Inserts a new row in the tbody
+                newRow.insertCell(0).textContent = data.time;
+                newRow.insertCell(1).textContent = data.light + ' W/m²';
+                newRow.insertCell(2).textContent = data.humidity + '%';
+                newRow.insertCell(3).textContent = data.temperature + '°C';
+            });
+        }
+
+        // Function to update the footer with average values
+        function updateFooter(averages) {
+            const footerRow = document.getElementById('footer-row'); // Gets the footer row by ID
+            footerRow.cells[1].textContent = averages[0].toFixed(2) + ' W/m²';
+            footerRow.cells[2].textContent = averages[1].toFixed(2) + '%';
+            footerRow.cells[3].textContent = averages[2].toFixed(2) + '°C';
+        }
+
+        // Start polling the server every 5 seconds
+        setInterval(fetchData, 5000); // Calls fetchData function every 5000 milliseconds (5 seconds)
     </script>
 </head>
 <body>
-<h1>Green House 1 Statistics</h1>
+<div class="container"> <!-- Main container for the content -->
+    <h1>Greenhouse {{ greenhouse_id }} Parameters</h1> <!-- Displays the greenhouse ID dynamically passed from the Flask backend -->
 
-<div style="margin: 20px; padding: 5px; text-align: center; background-color: lightgray;">
-    <p id="time2">Time: --:--:--</p>
-    <p id="light2">Light Level: ---:----</p>
-    <p id="humidity2">Humidity: --.--%</p>
-    <p id="temperature2">Temperature: --.--°C</p>
+    <table id="data-table"> <!-- Table to display sensor data -->
+        <thead> <!-- Table header section -->
+        <tr>
+            <th>Time</th>
+            <th>Light Level</th>
+            <th>Humidity</th>
+            <th>Temperature</th>
+        </tr>
+        </thead>
+        <tbody> <!-- Table body where data rows will be inserted -->
+        <!-- New data rows will be inserted here -->
+        </tbody>
+        <tfoot> <!-- Table footer section -->
+        <tr id="footer-row" class="footer-row"> <!-- Footer row for average values -->
+            <td>Average</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tfoot>
+    </table>
 </div>
-
 </body>
 </html>
+

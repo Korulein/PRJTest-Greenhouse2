@@ -3,22 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <script>
-        document.getElementById("redirectButton").addEventListener("click", redirect);
-        function redirect(){ window.location = "http://localhost:5001/Redirect"; }
-    </script>
+
+    <style>
+
+        body {
+            font-family: Courier New;
+            display: flex; /* Enables Flexbox layout for easy centering */
+            justify-content: center; /* Centers the content horizontally */
+            align-items: center; /* Centers the content vertically */
+            height: 100vh; /* Sets the height of the body to 100% of the viewport height */
+            margin: 0; /* Removes default margin around the body */
+            background-color: #f4f4f9;
+        }
+
+        /* Styles for the main container that holds the login form */
+        .container {
+            display: flex; /* Enables Flexbox layout for the container */
+            flex-direction: column; /* Aligns child elements in a column */
+            align-items: center; /* Centers child elements horizontally */
+            background-color: white; /* Sets the background color of the container to white */
+            padding: 20px;
+            border-radius: 8px; /* Rounds the corners of the container */
+            max-width: 400px; /* Sets a maximum width for the container */
+            width: 100%; /* Makes the container responsive, taking full width up to the max-width */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a shadow effect to the container */
+        }
+
+        /* Styles for the logo section */
+        .logo img {
+            max-width: 150px; /* Sets a maximum width for the logo image */
+            height: auto; /* Maintains the aspect ratio of the image */
+            margin-bottom: 20px; /* Adds space below the logo image */
+        }
+
+        /* Styles for the form element */
+        form {
+            font-family: Courier New;
+            width: 100%; /* Makes the form take the full width of the container */
+            display: flex; /* Enables Flexbox layout for the form */
+            flex-direction: column; /* Aligns child elements in a column */
+        }
+
+        /* Styles for text and password input fields */
+        input[type="text"], input[type="password"] {
+            font-family: Courier New;
+            padding: 10px; /* Adds padding inside the input fields */
+            margin-bottom: 15px; /* Adds space below each input field */
+            border-radius: 4px; /* Rounds the corners of the input fields */
+            border: 1px solid #ccc; /* Adds a light grey border around the input fields */
+            font-size: 16px;
+        }
+
+        /* Styles for the submit button */
+        input[type="submit"] {
+            font-family: Courier New;
+            padding: 10px;
+            background-color: #28a745; /* Sets a green background color for the button */
+            color: white;
+            border: none; /* Removes the default border of the button */
+            border-radius: 4px; /* Rounds the corners of the button */
+            font-size: 16px;
+            cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+        }
+
+        /* Styles for the submit button on hover */
+        input[type="submit"]:hover {
+            background-color: #218838; /* Changes the background color to a darker green when hovered */
+        }
+    </style>
 </head>
 <body>
-<h1>Input Credentials to Login</h1><br>
-<form action="/Login" method="POST">
-  <label>Username:</label><br>
-  <input type="text" name="username"><br><br>
 
-  <label>Password:</label><br>
-  <input type="text" name="password"><br><br><br>
+<div class="container"> <!-- Main container for the login form -->
+    <!-- Logo Section -->
+    <div class="logo">
+        <img src="../static/bvagro-bco.png" alt="Company Logo">
+    </div>
 
-  <input id="redirectButton" type="submit" value="Login">
-</form>
+    <form action="/Login" method="POST"> <!-- Form that sends data to the '/Login' endpoint using the POST method -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required> <!-- Text input for the username, marked as required -->
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required> <!-- Password input field, marked as required -->
+
+        <input type="submit" value="Login"> <!-- Submit button with the label "Login" -->
+    </form>
+</div>
 
 </body>
 </html>
+
